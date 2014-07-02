@@ -213,5 +213,13 @@
     }
     return dicStatus;
 }
+- (NSArray*)queryTempStatusFromDataBase
+{
+    return nil;
+}
+- (void)saveTempStatusToDrafts:(NSDictionary*)temStatus
+{
+
+}
 
 @end

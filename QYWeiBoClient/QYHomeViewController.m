@@ -103,7 +103,7 @@
     TSActionSheet *actionSheet = [[TSActionSheet alloc] initWithTitle:@""];
     actionSheet.popoverBaseColor = [UIColor darkGrayColor];
     CGRect oldFrame = actionSheet.frame;
-    CGRect newFrame = (CGRect){oldFrame.origin,130,oldFrame.size.height};
+    CGRect newFrame = (CGRect){oldFrame.origin,160,oldFrame.size.height};
     actionSheet.frame = newFrame;
     
     [actionSheet addButtonWithTitle:@"刷新" block:^{

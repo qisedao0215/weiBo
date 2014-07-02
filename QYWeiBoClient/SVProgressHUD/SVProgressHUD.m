@@ -41,6 +41,7 @@
 @synthesize overlayWindow, hudView, maskType, fadeOutTimer, stringLabel, imageView, spinnerView, visibleKeyboardHeight;
 
 - (void)dealloc {
+    [super dealloc];
 //	self.fadeOutTimer = nil; //此成员是只读类型，原作者实现赋值为nil应该属于错误
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 //    [super dealloc];
@@ -173,9 +174,15 @@
     CGRect labelRect = CGRectZero;
     
     if(string) {
-        CGSize stringSize = [string sizeWithFont:self.stringLabel.font constrainedToSize:CGSizeMake(200, 300)];
-        stringWidth = stringSize.width;
-        stringHeight = stringSize.height;
+//        CGSize stringSize = [string sizeWithFont:self.stringLabel.font constrainedToSize:CGSizeMake(200, 300)];
+//        stringWidth = stringSize.width;
+//        stringHeight = stringSize.height;
+        
+        CGRect frame = [string boundingRectWithSize:CGSizeMake(200, 300) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName: self.stringLabel.font} context:nil];
+        
+        stringWidth = frame.size.width;
+        stringHeight = frame.size.height;
+        
         hudHeight = 80+stringHeight;
         
         if(stringWidth > hudWidth)
@@ -248,7 +255,7 @@
 - (void)positionHUD:(NSNotification*)notification {
     
     CGFloat keyboardHeight;
-    double animationDuration;
+    double animationDuration = 0.0;
     
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     
@@ -314,7 +321,7 @@
     
     if(notification) {
         [UIView animateWithDuration:animationDuration 
-                              delay:0 
+                              delay:0
                             options:UIViewAnimationOptionAllowUserInteraction 
                          animations:^{
                              [self moveToPoint:newCenter rotateAngle:rotateAngle];
@@ -473,7 +480,7 @@
 		stringLabel.textColor = [UIColor whiteColor];
 		stringLabel.backgroundColor = [UIColor clearColor];
 		stringLabel.adjustsFontSizeToFitWidth = YES;
-		stringLabel.textAlignment = UITextAlignmentCenter;
+//		stringLabel.textAlignment = UITextAlignmentCenter;
 		stringLabel.baselineAdjustment = UIBaselineAdjustmentAlignCenters;
 		stringLabel.font = [UIFont boldSystemFontOfSize:16];
 		stringLabel.shadowColor = [UIColor blackColor];
